@@ -1,0 +1,45 @@
+# Complete File List for Phase Change Particle Method Project
+
+## Core Source Code (src/)
+1. particle_system.py      - Particle data structure and neighbor search
+2. kernel.py               - Wendland C2 kernel functions (JIT optimized)
+3. operators.py            - Gradient and Laplacian operators
+4. phase_change.py         - Phase change model with latent heat
+5. interface_tracker.py    - Level-set interface tracking
+6. solver.py               - Time integration and heat equation solver
+7. stefan_problem.py       - Analytical Stefan problem solution
+8. validation.py           - Validation and convergence analysis
+9. visualize.py            - Plotting and animation tools
+10. main.py                - Main simulation driver with CLI
+
+## Tests (tests/)
+1. test_core.py            - Unit tests for core components
+
+## Documentation
+1. README.md               - Main project documentation with results
+2. DOCUMENTATION.md        - Mathematical formulation and algorithms
+3. EXAMPLES.md             - Usage examples and tutorials
+4. QUICKSTART.md           - Quick start guide
+5. CONTRIBUTING.md         - Contribution guidelines
+6. CHANGELOG.md            - Version history
+7. PROJECT_SUMMARY.md      - Complete project overview
+8. CHECKLIST.md            - Project completion checklist
+
+## Configuration Files
+1. requirements.txt        - Python dependencies
+2. .gitignore              - Git ignore rules
+3. LICENSE                 - MIT License
+
+## GitHub Integration
+1. .github/workflows/tests.yml - CI/CD workflow
+
+## Results (results/)
+Generated output files:
+1. animation.gif           - Phase change animation
+2. interface_evolution.png - Interface visualization
+3. temperature_field.png   - Temperature distribution
+4. stefan_validation.png   - Analytical comparison
+5. convergence_analysis.png - Convergence study
+
+Total Files: 29 (excluding __pycache__)
+Total Lines of Code: ~1500
