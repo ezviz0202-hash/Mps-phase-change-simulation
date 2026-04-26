@@ -38,10 +38,5 @@ ENV/
 *.swo
 *~
 
-results/*.png
-results/*.gif
-results/*.npz
-results/*.dat
-
 .DS_Store
 Thumbs.db
