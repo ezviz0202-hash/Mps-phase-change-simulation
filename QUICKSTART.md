@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-git clone [https://github.com/yourusername/phase-change-particle-method.git](https://github.com/ezviz0202-hash/Mps-phase-change-simulation)
+git clone (https://github.com/ezviz0202-hash/Mps-phase-change-simulation)
 cd phase-change-particle-method
 pip install -r requirements.txt
 ```
