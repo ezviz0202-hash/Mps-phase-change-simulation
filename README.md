@@ -32,6 +32,8 @@ Real-time visualization of solidification process (100s physical time).
 ## Features
 
 - **Particle-based Temperature Field**: Lagrangian particle framework for heat transfer simulation
+- **Numba JIT Compilation**: High-performance optimization for numerical bottleneck acceleration
+- **Modular Architecture**: Clean separation of physical models and numerical solvers for high extensibility
 - **Sharp Interface Tracking**: Level-set method for accurate solid-liquid boundary representation
 - **Latent Heat Treatment**: Enthalpy-based formulation for phase change energy
 - **Multi-Resolution Support**: Adaptive particle spacing for computational efficiency
@@ -43,20 +45,14 @@ Real-time visualization of solidification process (100s physical time).
 ### Governing Equations
 
 **Heat Conduction:**
-```
-ρc_p ∂T/∂t = ∇·(k∇T)
-```
+$$\rho c_p \frac{\partial T}{\partial t} = \nabla \cdot (k \nabla T)$$
 
 **Phase Change with Latent Heat:**
-```
-H = c_p T + f L
-```
-where `f` is the liquid fraction and `L` is the latent heat of fusion.
+$$H = c_p T + f L$$
+*(where $f$ is the liquid fraction and $L$ is the latent heat of fusion)*
 
 **Stefan Condition at Interface:**
-```
-k_s ∂T_s/∂n - k_l ∂T_l/∂n = ρL v_n
-```
+$$k_s \frac{\partial T_s}{\partial n} - k_l \frac{\partial T_l}{\partial n} = \rho L v_n$$
 
 ### Particle Method Discretization
 
@@ -68,7 +64,7 @@ k_s ∂T_s/∂n - k_l ∂T_l/∂n = ρL v_n
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/phase-change-particle-method.git
+git clone https://github.com/ezviz0202-hash/Mps-phase-change-simulation.git
 cd phase-change-particle-method
 pip install -r requirements.txt
 ```
@@ -160,7 +156,7 @@ The phase change animation shows physically accurate behavior but with slow evol
 
 This implementation is based on modern particle methods for multiphase flows with phase change:
 
-1. Moving Particle Semi-implicit (MPS) method for free surface flows
+1. Koshizuka, S., Shibata, K., et al. "Moving Particle Semi-implicit Method: A Meshfree Particle Method for Fluid Dynamics" (or related foundational MPS papers/books by Prof. Koshizuka and Prof. Shibata).
 2. Multi-resolution techniques for computational efficiency
 3. High-order consistent particle discretization schemes
 4. Enthalpy-based phase change models
