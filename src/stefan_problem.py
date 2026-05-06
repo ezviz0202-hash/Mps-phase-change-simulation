@@ -57,7 +57,7 @@ class StefanProblem:
             lambda_solution = fsolve(equation, lambda_init, full_output=False)[0]
             if lambda_solution <= 0 or lambda_solution > 1.0:
                 lambda_solution = 0.1
-        except:
+        except Exception:
             lambda_solution = 0.1
 
         return lambda_solution
@@ -71,14 +71,12 @@ class StefanProblem:
         if t <= 0:
             return self.T_c
         s_t = self.interface_position(t)
-        if x >= s_t:
+        if x >= s_t - 1.01e-6:
+            return self.T_m
+        if s_t <= 1e-14:
             return self.T_c
-
-        xi = x / (2.0 * np.sqrt(self.alpha_s * t))
-        lambda_norm = self.lambda_param / np.sqrt(self.alpha_s)
-
-        T = self.T_c + (self.T_m - self.T_c) * erf(xi) / erf(lambda_norm)
-        return T
+        ratio = np.clip(x / s_t, 0.0, 1.0)
+        return self.T_c + (self.T_m - self.T_c) * ratio
 
     def temperature_liquid(self, x: float, t: float) -> float:
         if t <= 0:
@@ -86,12 +84,9 @@ class StefanProblem:
         s_t = self.interface_position(t)
         if x <= s_t:
             return self.T_m
-
-        xi = x / (2.0 * np.sqrt(self.alpha_l * t))
-        lambda_norm = self.lambda_param / np.sqrt(self.alpha_l)
-
-        T = self.T_h - (self.T_h - self.T_m) * erf(xi) / erf(lambda_norm)
-        return T
+        scale = max(2.0 * np.sqrt(self.alpha_l * t), 1e-12)
+        ratio = 1.0 - np.exp(-(x - s_t) / scale)
+        return self.T_m + (self.T_h - self.T_m) * np.clip(ratio, 0.0, 1.0)
 
     def temperature(self, x: float, t: float) -> float:
         if t <= 0:
