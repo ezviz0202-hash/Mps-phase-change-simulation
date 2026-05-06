@@ -33,22 +33,22 @@ class PhaseChangeModel:
         return k / (self.rho * c_p)
 
     def temperature_to_enthalpy(self, T: float, f: float) -> float:
-        c_p = self.get_specific_heat(f)
-        return c_p * T + f * self.L
+        if f <= 0.0:
+            return self.c_p_s * T
+        if f >= 1.0:
+            return self.c_p_s * self.T_melt + self.L + self.c_p_l * (T - self.T_melt)
+        return self.c_p_s * self.T_melt + f * self.L
 
     def enthalpy_to_temperature(self, H: float) -> tuple:
-        T_s = (H - 0.0 * self.L) / self.c_p_s
-        T_l = (H - 1.0 * self.L) / self.c_p_l
+        H_s = self.c_p_s * self.T_melt
+        H_l = H_s + self.L
 
-        if T_s < self.T_melt - self.interface_width / 2:
-            return T_s, 0.0
-        elif T_l > self.T_melt + self.interface_width / 2:
-            return T_l, 1.0
-        else:
-            f = (H - self.c_p_s * self.T_melt) / self.L
-            f = np.clip(f, 0.0, 1.0)
-            T = self.T_melt
-            return T, f
+        if H < H_s:
+            return H / self.c_p_s, 0.0
+        if H > H_l:
+            return self.T_melt + (H - H_l) / self.c_p_l, 1.0
+        f = np.clip((H - H_s) / self.L, 0.0, 1.0)
+        return self.T_melt, f
 
     def compute_source_term(self, T: np.ndarray, T_old: np.ndarray,
                            f: np.ndarray, f_old: np.ndarray, dt: float) -> np.ndarray:
